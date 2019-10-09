@@ -1,1 +1,1 @@
-# cs5242-assignments
+# CS5242 assignments
