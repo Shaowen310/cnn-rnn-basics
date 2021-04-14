@@ -1,4 +1,4 @@
-# Keras Deep Learning Basics
+# CNN and RNN
 
 Implementation of forward and backward calculation of CNN and RNN.
 
