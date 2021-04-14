@@ -7,8 +7,8 @@ import numpy as np
 import os
 import wget
 
-class MNIST():
 
+class MNIST():
     def __init__(self):
         self.x_train = None
         self.y_train = None
@@ -41,8 +41,8 @@ class MNIST():
         # x_train = (x_train-np.mean(x_train, axis=0, keepdims=True))/255
         # x_test = (x_test-np.mean(x_test, axis=0, keepdims=True))/255
 
-        x_train = x_train/255
-        x_test = x_test/255
+        x_train = x_train / 255
+        x_test = x_test / 255
 
         x_train_shape = x_train.shape
         x_test_shape = x_test.shape
@@ -71,36 +71,36 @@ class MNIST():
                 idx = np.random.choice(self.num_train, batch)
             else:
                 if pointer + batch <= self.num_train:
-                    idx = np.arange(pointer, pointer+batch)
+                    idx = np.arange(pointer, pointer + batch)
                     pointer = pointer + batch
                 else:
                     pointer = 0
-                    idx = np.arange(pointer, pointer+batch)
+                    idx = np.arange(pointer, pointer + batch)
                     pointer = pointer + batch
             yield self.x_train[idx], self.y_train[idx]
-    
+
     def test_loader(self, batch):
         pointer = 0
-        while pointer+batch<=self.num_test:
-            idx = np.arange(pointer, pointer+batch)
+        while pointer + batch <= self.num_test:
+            idx = np.arange(pointer, pointer + batch)
             pointer = pointer + batch
             yield self.x_test[idx], self.y_test[idx]
-        if pointer<self.num_test-1:
-            idx = np.arange(pointer, self.num_test-pointer-1)
-            pointer = self.num_test-1
+        if pointer < self.num_test - 1:
+            idx = np.arange(pointer, self.num_test - pointer - 1)
+            pointer = self.num_test - 1
             yield self.x_test[idx], self.y_test[idx]
         else:
             return None
 
     def val_loader(self, batch):
         pointer = 0
-        while pointer+batch<=self.num_val:
-            idx = np.arange(pointer, pointer+batch)
+        while pointer + batch <= self.num_val:
+            idx = np.arange(pointer, pointer + batch)
             pointer = pointer + batch
             yield self.x_val[idx], self.y_val[idx]
-        if pointer<self.num_val-1:
-            idx = np.arange(pointer, self.num_val-pointer-1)
-            pointer = self.num_val-1
+        if pointer < self.num_val - 1:
+            idx = np.arange(pointer, self.num_val - pointer - 1)
+            pointer = self.num_val - 1
             yield self.x_val[idx], self.y_val[idx]
         else:
             return None

@@ -1,8 +1,7 @@
-import numpy as np 
+import numpy as np
 
 
 # The first 3 functions in this file are from the Stanford cs231n course.
-
 def eval_numerical_gradient_inputs(layer, inputs, in_grads, h=1e-5):
     grads = np.zeros_like(inputs)
     it = np.nditer(inputs, flags=['multi_index'], op_flags=['readwrite'])
@@ -19,6 +18,7 @@ def eval_numerical_gradient_inputs(layer, inputs, in_grads, h=1e-5):
         grads[idx] = np.sum((pos - neg) * in_grads) / (2 * h)
         it.iternext()
     return grads
+
 
 def eval_numerical_gradient_params(layer, inputs, in_grads, h=1e-5):
     w_grad = np.zeros_like(layer.weights)
@@ -52,8 +52,9 @@ def eval_numerical_gradient_params(layer, inputs, in_grads, h=1e-5):
 
         b_grad[idx] = np.sum((pos - neg) * in_grads) / (2 * h)
         b_it.iternext()
-    
+
     return w_grad, b_grad
+
 
 def eval_numerical_gradient_loss(loss, inputs, targets, h=1e-5):
     grads = np.zeros_like(inputs)
@@ -72,9 +73,12 @@ def eval_numerical_gradient_loss(loss, inputs, targets, h=1e-5):
         it.iternext()
     return grads
 
-def check_grads(cacul_grads, numer_grads, threshold = 1e-7):
-    precise = np.linalg.norm(cacul_grads-numer_grads) / max(np.linalg.norm(cacul_grads), np.linalg.norm(numer_grads))
+
+def check_grads(cacul_grads, numer_grads, threshold=1e-7):
+    precise = np.linalg.norm(cacul_grads - numer_grads) / max(np.linalg.norm(cacul_grads),
+                                                              np.linalg.norm(numer_grads))
     return precise
+
 
 def check_grads_layer(layer, inputs, in_grads):
     numer_grads = eval_numerical_gradient_inputs(layer, inputs, in_grads)
@@ -89,6 +93,7 @@ def check_grads_layer(layer, inputs, in_grads):
         b_results = check_grads(layer.b_grad, b_grad)
         print('Gradients to weights: ', w_results)
         print('Gradients to bias: ', b_results)
+
 
 def check_grads_loss(layer, inputs, targets):
     numer_grads = eval_numerical_gradient_loss(layer, inputs, targets)
